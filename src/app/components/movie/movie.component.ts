@@ -34,13 +34,9 @@ export class MovieComponent implements OnInit {
   }
 
   public cargarMovies() {
-    this.movieService.getMovies().subscribe(
-      (movie: any) => {
-        this.movies = movie;
-        console.log(this.movies);
-      },
-      (error) => console.log(error)
-    );
+    this.movieService
+      .getMovies()
+      .subscribe((movies: any) => (this.movies = movies));
   }
 
   public crearMovie() {
@@ -57,24 +53,24 @@ export class MovieComponent implements OnInit {
   }
 
   public eliminarMovie(mov_id: any) {
-    //   this.pizzaService
-    //     .deletePizza(piz_id)
-    //     .subscribe((res) => console.log('Pizza eliminada correctamente'));
-    //   this.cargarPizza();
+    this.movieService.deleteMovie(mov_id).subscribe((res) => {
+      console.log('Pelicula eliminada correctamente');
+      this.cargarMovies();
+    });
   }
 
   public actualizarMovie(mov_id: any) {
-    //   this.pizzaService
-    //     .putUpdatePizza({
-    //       piz_id: piz_id,
-    //       piz_name: this.form.value.txtname,
-    //       piz_origin: this.form.value.txtorigin,
-    //       piz_state: this.form.value.txtstate,
-    //     })
-    //     .subscribe((res) => {
-    //       console.log('Pizza actualizada correctamente.');
-    //       this.cargarPizza();
-    //     });
+    this.movieService
+      .putUpdateMovie({
+        mov_id,
+        mov_title: this.form.value.txtTitle,
+        mov_producer: this.form.value.txtProducer,
+        mov_state: this.form.value.chkState,
+      })
+      .subscribe((res) => {
+        console.log('Pizza actualizada correctamente.');
+        this.cargarMovies();
+      });
   }
 
   public infoUpdateMovie(
