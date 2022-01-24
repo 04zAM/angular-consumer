@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --prod --base-href https://04zAM.github.io/consumer-construccion/",
+    "ngh": "ngh --dir=dist/consumer-construccion",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
