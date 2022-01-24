@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PizzaComponent } from './components/pizza/pizza.component';
-import { IngredientsComponent } from './components/ingredients/ingredients.component';
-import { PizzaIngredientsComponent } from './components/pizza-ingredients/pizza-ingredients.component';
+import { AppComponent } from './app.component';
 import { MovieComponent } from './components/movie/movie.component';
+import { ActorsComponent } from './components/actors/actors.component';
+import { MovieActorsComponent } from './components/movie-actors/movie-actors.component';
 
 const routes: Routes = [
-  { path: '', component: PizzaComponent },
-  { path: 'pizza', component: PizzaComponent },
-  { path: 'ingredients', component: IngredientsComponent },
-  {
-    path: 'pizza-ingredients/:piz_id/:piz_name',
-    component: PizzaIngredientsComponent,
-  },
+  { path: '', component: AppComponent },
   { path: 'movie', component: MovieComponent },
+  { path: 'actors', component: ActorsComponent },
+  {
+    path: 'movie-actors/:mov_id/:mov_title',
+    component: MovieActorsComponent,
+  },
 ];
 
 @NgModule({

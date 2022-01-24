@@ -4,18 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PizzaComponent } from './components/pizza/pizza.component';
-import { IngredientsComponent } from './components/ingredients/ingredients.component';
-import { PizzaIngredientsComponent } from './components/pizza-ingredients/pizza-ingredients.component';
 import { MovieComponent } from './components/movie/movie.component';
+import { ActorsComponent } from './components/actors/actors.component';
+import { MovieActorsComponent } from './components/movie-actors/movie-actors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PizzaComponent,
-    IngredientsComponent,
-    PizzaIngredientsComponent,
     MovieComponent,
+    ActorsComponent,
+    MovieActorsComponent,
   ],
   imports: [
     BrowserModule,

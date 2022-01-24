@@ -1,0 +1,60 @@
+<div class="container" style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    Actores para la pelicula: {{titleMovie}}
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form">
+                        <div class="form-group">
+                            <label>
+                                <h5>Seleccione el Actor:</h5>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                id="inputGroupSelect01" formControlName="actorsSelected">
+                                <option *ngFor="let a of actors" [value]="a.act_id">{{a.act_name}}
+                                </option>
+                            </select>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="actorPrincipal"
+                                    formControlName="actorPrincipal">
+                                <label class="form-check-label" for="actorPrincipal">Actor Principal</label>
+                            </div>
+                            <hr />
+                        </div>
+                        <button type="button" (click)="postMovieActors()" class="btn btn-primary">
+                            Agregar Actor
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover bg-white">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Actor</th>
+                        <th>Principal</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ma of movieActors">
+                        <td>{{ma.act_mov_id}}</td>
+                        <td>{{ma.act_name}}</td>
+                        <td>{{ma.act_mov_actor_principal?"SI":"NO"}}</td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-danger text-white ml-1" (click)="deleteMovieActors(ma.act_mov_id)">
+                                <li class="fas fa-trash-alt"></li>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
