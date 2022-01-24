@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PizzaIngredientsService } from 'src/app/service/pizza-ingredients.service';
+import { PizzaIngredientsService } from 'src/app/services/pizza-ingredients.service';
 import { ModelPizzaIngredients } from 'src/app/model/model.pizza-ingredients';
 import { FormBuilder,FormGroup } from '@angular/forms';
 import { ModelIngredients } from 'src/app/model/model.ingredients';
-import { IngredientsService } from 'src/app/service/ingredients.service';
+import { IngredientsService } from 'src/app/services/ingredients.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

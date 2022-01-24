@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelIngredients } from 'src/app/model/model.ingredients';
-import { IngredientsService } from 'src/app/service/ingredients.service';
+import { IngredientsService } from 'src/app/services/ingredients.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({

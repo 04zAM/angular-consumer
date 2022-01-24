@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelPizza } from 'src/app/model/model.pizza';
-import {PizzaService} from '../../service/pizza.service';
+import {PizzaService} from '../../services/pizza.service';
 import { FormBuilder,FormGroup } from '@angular/forms';
 
 @Component({
