@@ -56,8 +56,9 @@ export class TeamComponent implements OnInit {
         },
       })
       .subscribe((result: any) => {
-        console.log('Equipo Creada Correctamente');
+        console.log('Equipo Creado Correctamente');
         this.cargarTeams();
+        location.reload();
       });
   }
 
@@ -72,6 +73,7 @@ export class TeamComponent implements OnInit {
       .subscribe((result: any) => {
         console.log('Equipo Eliminada Correctamente');
         this.cargarTeams();
+        location.reload();
       });
   }
 
@@ -91,6 +93,7 @@ export class TeamComponent implements OnInit {
       .subscribe((result: any) => {
         console.log('Equipo Actualizada Correctamente');
         this.cargarTeams();
+        location.reload();
       });
   }
 

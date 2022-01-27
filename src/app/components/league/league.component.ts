@@ -58,6 +58,7 @@ export class LeagueComponent implements OnInit {
       .subscribe((result: any) => {
         console.log('Liga Creada Correctamente');
         this.cargarLeagues();
+        location.reload();
       });
   }
 
@@ -72,6 +73,7 @@ export class LeagueComponent implements OnInit {
       .subscribe((result: any) => {
         console.log('Liga Eliminada Correctamente');
         this.cargarLeagues();
+        location.reload();
       });
   }
 
@@ -91,6 +93,7 @@ export class LeagueComponent implements OnInit {
       .subscribe((result: any) => {
         console.log('Liga Actualizada Correctamente');
         this.cargarLeagues();
+        location.reload();
       });
   }
 
