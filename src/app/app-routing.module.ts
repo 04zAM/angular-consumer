@@ -8,6 +8,8 @@ import { LeagueComponent } from './components/league/league.component';
 import { TeamComponent } from './components/team/team.component';
 import { LeagueTeamComponent } from './components/league-team/league-team.component';
 import { TeamLeagueComponent } from './components/team-league/team-league.component';
+import { FacturaComponent } from './components/factura/factura.component';
+import { FacturaDetalleComponent } from './components/factura-detalle/factura-detalle.component';
 
 const routes: Routes = [
   { path: '', component: AppComponent },
@@ -26,6 +28,11 @@ const routes: Routes = [
   {
     path: 'league-team',
     component: LeagueTeamComponent,
+  },
+  { path: 'factura', component: FacturaComponent },
+  {
+    path: 'factura-detalle',
+    component: FacturaDetalleComponent,
   },
 ];
 

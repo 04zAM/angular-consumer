@@ -14,6 +14,8 @@ import { TeamComponent } from './components/team/team.component';
 import { LeagueComponent } from './components/league/league.component';
 import { TeamLeagueComponent } from './components/team-league/team-league.component';
 import { LeagueTeamComponent } from './components/league-team/league-team.component';
+import { FacturaComponent } from './components/factura/factura.component';
+import { FacturaDetalleComponent } from './components/factura-detalle/factura-detalle.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { LeagueTeamComponent } from './components/league-team/league-team.compon
     LeagueComponent,
     TeamLeagueComponent,
     LeagueTeamComponent,
+    FacturaComponent,
+    FacturaDetalleComponent,
   ],
   imports: [
     BrowserModule,
