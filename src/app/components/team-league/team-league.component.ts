@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './team-league.component.html',
   styleUrls: ['./team-league.component.css'],
 })
-export class LeagueTeamComponent implements OnInit {
+export class TeamLeagueComponent implements OnInit {
   public form!: FormGroup;
   leagueTeams: any;
   teams: any;

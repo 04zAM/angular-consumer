@@ -18,6 +18,7 @@ export class LeagueComponent implements OnInit {
     lea_creation: '',
   };
   private querySubscription!: Subscription;
+  private router: any;
   leagues: any;
   loading = true;
   error: any;
