@@ -6,9 +6,9 @@
                     Crear Facturas
                 </div>
                 <div class="card-body">
-                    <a [routerLink]="['/factura-detalle']" class="btn btn-primary btn-block">Nueva Factura<i
-                            class="fas fa-plus-circle"></i>
-                    </a>
+                    <a *ngIf="factura.cli_id > 0" [routerLink]="['/factura-detalle', factura.fac_numero, factura.cli_id]" class="btn btn-primary btn-block">Ingresar Detalle</a> 
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                        data-target="#crearFactura">Nueva Factura</button>
                 </div>
                 <div class="modal fade" id="crearFactura" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,8 +39,9 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" (click)="crearCabeceraFactura()"
+                                            <button type="button" class="btn btn-primary" (click)="crearCabeceraFactura()"
                                             data-dismiss="modal">Crear</button>
+                                            
                                     </div>
                                 </form>
                             </div>

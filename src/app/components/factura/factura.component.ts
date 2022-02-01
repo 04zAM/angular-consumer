@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class FacturaComponent implements OnInit {
   public form!: FormGroup;
-  public informacionMovie = {
+  public informacionFactura = {
     fac_id: -1,
     fac_numero: '',
     cli_id: -1,
@@ -39,10 +39,13 @@ export class FacturaComponent implements OnInit {
     this.cargarFacturas();
     this.cargarClientes();
     this.form = this.formBuilder.group({
-      txtTitle: [''],
-      txtProducer: [''],
-      chkState: [true],
+      txtNumero: [''],
+      selectedCliente: [''],
     });
+    this.factura = {
+      fac_numero: "Fac-001",
+      cli_id: -1,
+    }
   }
 
   public cargarFacturas() {

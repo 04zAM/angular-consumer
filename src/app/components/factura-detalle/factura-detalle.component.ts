@@ -13,14 +13,13 @@ import { ProductoService } from '../../services/producto.service';
   styleUrls: ['./factura-detalle.component.css'],
 })
 export class FacturaDetalleComponent implements OnInit {
-  detalles: ModelDetalle[] = [];
-  productos: ModelProducto[] = [];
+  public detalles: ModelDetalle[] = [];
+  public productos: ModelProducto[] = [];
+  public detalle:any;
   public form!: FormGroup;
 
-  //para obtener datos
-  public idMovie!: number;
-  public titleMovie!: '';
-  public fac_id!: number;
+  public fac_numero!: string;
+  public cli_id!: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,21 +30,16 @@ export class FacturaDetalleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((body: any) => {
-      this.fac_id = parseInt(body['fac_id']);
-    });
+    this.route.params.subscribe(params => {
+      this.fac_numero=params['fac_numero']
+      this.cli_id=parseInt(params['cli_id'])      
+    })
     this.cargarProductos();
     this.form = this.formBuilder.group({
-      actorsSelected: [],
-      actorPrincipal: false,
+      productoSelected: {},
+      txtCantidad: [''],
+      
     });
-  }
-
-  //agregar metodos
-  public cargarDetalles() {
-    this.detalleService
-      .getDetalle(this.fac_id)
-      .subscribe((detalles: any) => (this.detalles = detalles));
   }
 
   public cargarProductos() {
@@ -54,17 +48,25 @@ export class FacturaDetalleComponent implements OnInit {
       .subscribe((productos: any) => (this.productos = productos));
   }
 
+  public agregarProducto(){
+
+    console.table(this.form.value.productoSelected.json)
+    this.detalle = {
+      pro_id: this.form.value.productoSelected.pro_id,
+      det_fac_cantidad: this.form.value.txtCantidad,
+    }
+    console.log(this.detalle)
+  }
+
   public postFacturaDetalle() {
     this.detalleService
       .postDetalle({
-        fac_id: this.fac_id,
-        prod_id: this.form.value.productoSelected,
-        det_fac_cantidad: this.form.value.txtCantidad,
+        pro_id: this.detalle.pro_id,
+        det_fac_cantidad: this.detalle.det_fac_cantidad,
       })
       .subscribe((respuesta) => {
         console.log('Detalle creado correctamente');
         this.form.reset();
-        this.cargarDetalles();
       });
   }
 

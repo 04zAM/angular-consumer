@@ -8,7 +8,7 @@ const routes: Routes = [
  
   { path: 'factura', component: FacturaComponent },
   {
-    path: 'factura-detalle',
+    path: 'factura-detalle/:fac_numero/:cli_id',
     component: FacturaDetalleComponent,
   },
 ];
