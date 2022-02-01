@@ -19,7 +19,12 @@
                                     p.pro_codigo}}
                                 </option>
                             </select>
+                            <div class="form-group">
+                                <input type="text" name="Cantidad" formControlName="txtCantidad"
+                                    placeholder="Insertar cantidad" class="form-control">
+                            </div>
                             <hr />
+                            
                         </div>
                         <button type="button" (click)="postFacturaDetalle()" class="btn btn-primary">
                             Agregar Producto
