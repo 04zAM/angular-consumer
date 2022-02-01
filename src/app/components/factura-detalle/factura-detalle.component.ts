@@ -34,7 +34,7 @@ export class FacturaDetalleComponent implements OnInit {
     this.route.params.subscribe((body: any) => {
       this.fac_id = parseInt(body['fac_id']);
     });
-    this.cargarDetalles();
+    this.cargarProductos();
     this.form = this.formBuilder.group({
       actorsSelected: [],
       actorPrincipal: false,
