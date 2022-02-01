@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModelDetalle } from 'src/app/model/model.detalle';
 import { ModelProducto } from 'src/app/model/model.producto';
@@ -15,11 +15,17 @@ import { ProductoService } from '../../services/producto.service';
 export class FacturaDetalleComponent implements OnInit {
   public detalles: ModelDetalle[] = [];
   public productos: ModelProducto[] = [];
-  public detalle:any;
   public form!: FormGroup;
 
   public fac_numero!: string;
   public cli_id!: number;
+  public detalle: any;
+  public producto: any;
+  public txtSubtotal: number = 0;
+  public txtIva: number = 0;
+  public txtTarifa0: number = 0;
+  public txtTarifa12: number = 0;
+  public txtTotal: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,15 +36,14 @@ export class FacturaDetalleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.fac_numero=params['fac_numero']
-      this.cli_id=parseInt(params['cli_id'])      
-    })
+    this.route.params.subscribe((params) => {
+      this.fac_numero = params['fac_numero'];
+      this.cli_id = parseInt(params['cli_id']);
+    });
     this.cargarProductos();
     this.form = this.formBuilder.group({
-      productoSelected: {},
-      txtCantidad: [''],
-      
+      productoSelected: [null, [Validators.required]],
+      txtCantidad: ['', [Validators.required]],
     });
   }
 
@@ -48,34 +53,73 @@ export class FacturaDetalleComponent implements OnInit {
       .subscribe((productos: any) => (this.productos = productos));
   }
 
-  public agregarProducto(){
+  get productoSelected() {
+    return this.form.get('productoSelected');
+  }
 
-    console.table(this.form.value.productoSelected.json)
+  public agregarProducto() {
+    this.producto = this.productoSelected?.value;
+  }
+
+  public agregarDetalle() {
+    let cantidad = parseInt(this.form.value.txtCantidad);
+    let precio = this.producto.pro_iva
+      ? parseFloat(this.producto.pro_precio) -
+        parseFloat(this.producto.pro_precio) * 0.12
+      : parseFloat(this.producto.pro_precio);
+    let total = cantidad * precio;
     this.detalle = {
-      pro_id: this.form.value.productoSelected.pro_id,
-      det_fac_cantidad: this.form.value.txtCantidad,
-    }
-    console.log(this.detalle)
+      pro_id: this.producto.pro_id,
+      det_fact_cantidad: cantidad,
+      det_fact_precio: precio,
+      det_fact_total: total,
+    };
+
+    this.txtIva += this.producto.pro_iva
+      ? this.detalle.det_fact_total * 0.12
+      : 0;
+    this.txtSubtotal += this.detalle.det_fact_total;
+    this.producto.pro_iva
+      ? (this.txtTarifa12 += this.detalle.det_fact_total)
+      : (this.txtTarifa0 += this.detalle.det_fact_total);
+    this.txtTotal += this.detalle.det_fact_total + this.txtIva;
+    this.detalles.push(this.detalle);
   }
 
   public postFacturaDetalle() {
-    this.detalleService
-      .postDetalle({
-        pro_id: this.detalle.pro_id,
-        det_fac_cantidad: this.detalle.det_fac_cantidad,
+    this.facturaService
+      .postFactura({
+        fac_numero: this.fac_numero,
+        cli_id: this.cli_id,
+        fac_subtotal: this.txtSubtotal,
+        fac_iva: this.txtIva,
+        fac_total: this.txtTotal,
+        fac_tarifa0: this.txtTarifa0,
+        fac_tarifa12: this.txtTarifa12,
       })
-      .subscribe((respuesta) => {
-        console.log('Detalle creado correctamente');
+      .subscribe((respuesta: any) => {
+        console.log('Factura creada correctamente', respuesta);
+        this.detalles.map((detalle: any) => {
+          this.detalleService
+            .postDetalle({
+              fac_id: respuesta.at(0).fac_id,
+              pro_id: detalle.pro_id,
+              det_fac_cantidad: detalle.det_fact_cantidad,
+              det_fac_precio: detalle.det_fact_precio,
+              det_fac_total: detalle.det_fact_total,
+            })
+            .subscribe((respuesta: any) => {
+              console.log('Detalle creado correctamente', respuesta);
+            });
+        });
         this.form.reset();
       });
   }
 
-  // public deleteDetalle(act_mov_id: any) {
-  //   this.detalleService
-  //     .deleteDetalle(act_mov_id)
-  //     .subscribe((respuesta) => {
-  //       console.log('detalle eliminado correctamente');
-  //       this.cargarDetalles();
-  //     });
-  // }
+  public quitarDetalle(detalle: any) {
+    this.detalles.map((det) => {});
+    this.detalles = [
+      ...this.detalles.filter((det) => det.pro_id !== detalle.pro_id),
+    ];
+  }
 }

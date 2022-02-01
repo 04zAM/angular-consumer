@@ -10,18 +10,18 @@
                         <div class="form-group">
                             <label for="inputGroupSelect01">Seleccione el Producto:</label>
                             <select class="form-control" aria-label=".form-select-lg example" id="inputGroupSelect01"
-                                formControlName="productoSelected">
-                                <option *ngFor="let p of productos" [value]="p|json">{{p.pro_nombre + " COD: " +
+                                formControlName="productoSelected" (change)="agregarProducto()">
+                                <option [ngValue]="null" disabled>Seleccione</option>
+                                <option *ngFor="let p of productos" [ngValue]="p">{{p.pro_nombre + " COD: " +
                                     p.pro_codigo}}
                                 </option>
                             </select>
                             <label for="Cantidad">Cantidad:</label>
-                                <input type="text" name="Cantidad" formControlName="txtCantidad"
-                                    placeholder="1" class="form-control">
+                            <input type="text" required name="Cantidad" formControlName="txtCantidad" placeholder="1"
+                                class="form-control">
                             <hr />
-                            
                         </div>
-                        <button type="button" (click)="agregarProducto()" class="btn btn-primary">
+                        <button type="button" (click)="agregarDetalle()" class="btn btn-primary">
                             Agregar Producto
                         </button>
                     </form>
@@ -36,6 +36,7 @@
                         <th>Cantidad</th>
                         <th>Precio</th>
                         <th>Total</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,9 +45,32 @@
                         <td>{{d.det_fact_cantidad}}</td>
                         <td>{{d.det_fact_precio}}</td>
                         <td>{{d.det_fact_total}}</td>
+                        <td>
+                            <button type="button" (click)="quitarDetalle(d)" class="btn btn-secondary">
+                                Quitar Producto
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
-                <tfoot></tfoot>
+                <tfoot>
+                    <div class="form-group">
+                        <label for="Subtotal">Subtotal: </label>
+                        <input type="text" readonly name="Subtotal" value="{{txtSubtotal}}" class="form-control">
+                        <label for="Tarifa0">Tarifa0: </label>
+                        <input type="text" readonly name="Tarifa0" value="{{txtTarifa0}}" class="form-control">
+                        <label for="Tarifa12">Tarifa12: </label>
+                        <input type="text" readonly name="Tarifa12" value="{{txtTarifa12}}" class="form-control">
+                        <label for="Iva">Iva: </label>
+                        <input type="text" readonly name="Iva" value="{{txtIva}}" class="form-control">
+                        <label for="Total">Total: </label>
+                        <input type="text" readonly name="Total" value="{{txtTotal}}" class="form-control">
+                        <hr />
+                        <button *ngIf="detalles.length > 0" type="button" (click)="postFacturaDetalle()"
+                            class="btn btn-primary btn-block">
+                            Facturar
+                        </button>
+                    </div>
+                </tfoot>
             </table>
         </div>
     </div>
